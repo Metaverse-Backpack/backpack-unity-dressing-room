@@ -10,6 +10,7 @@ public class SceneManager : MonoBehaviour
     private float _AngularVelocity;
     private float _AngularVelocityDamping = 1f;
     private float _CameraZoom;
+    private bool _Initialized = false;
 
     private Bkpk.AvatarInfo[] _AvatarsMetadata;
     private Bkpk.BkpkAvatar _Avatar = null;
@@ -25,40 +26,9 @@ public class SceneManager : MonoBehaviour
 
     async void LoadAvatars()
     {
-        Bkpk.AvatarInfo cryptoAvatars = new Bkpk.AvatarInfo
-        {
-            id = "XXX",
-            uri =
-                "https://alvevault.s3.eu-central-1.amazonaws.com/CryptoAvatars_Orion_CryptoAvatars_Orion.vrm",
-            format = "vrm",
-            type = "humanoid",
-            provider = "crypto-avatars",
-            metadata = ""
-        };
-
-        Bkpk.AvatarInfo meebits = new Bkpk.AvatarInfo
-        {
-            id = "XXX",
-            uri = "https://cdn.mona.gallery/e6db7ec3-d1c8-4935-86ce-b339a5d11eb6.vrm",
-            format = "vrm",
-            type = "humanoid",
-            provider = "meebits",
-            metadata = "",
-        };
-
-        Bkpk.AvatarInfo readyplayerme = new Bkpk.AvatarInfo
-        {
-            id = "XXX",
-            uri = "https://d1a370nemizbjq.cloudfront.net/0dccee22-f9db-44ca-a49d-deb8ca27aae5.glb",
-            format = "glb",
-            type = "humanoid",
-            provider = "readyplayerme",
-            metadata =
-                "{\"bodyType\": \"fullbody\",\"outfitGender\": \"masculine\",\"outfitVersion\": 2}",
-        };
-
-        _AvatarsMetadata = new Bkpk.AvatarInfo[] { cryptoAvatars, meebits, readyplayerme };
+        _AvatarsMetadata = await Bkpk.Avatars.GetAvatars();
         _CurrentAvatarIndex = 0;
+        _Initialized = true;
         LoadCurrentAvatar();
     }
 
@@ -81,6 +51,11 @@ public class SceneManager : MonoBehaviour
         {
             _AngularVelocity -= Input.GetAxis("Mouse X") * 5;
             Platform.transform.localScale = _DefaultPlatformSize * 0.9f;
+
+            if (!_Initialized)
+            {
+                LoadAvatars();
+            }
         }
 
         if (_Avatar != null)
