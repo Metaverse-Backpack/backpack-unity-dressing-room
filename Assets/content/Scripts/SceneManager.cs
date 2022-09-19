@@ -16,10 +16,7 @@ public class SceneManager : MonoBehaviour
 
     void Awake()
     {
-        Bkpk.Config.WebSdkUrl = "https://owner.com.ngrok.io/JsSdk/dist/index.js";
-        Bkpk.Config.BkpkApiUrl = "http://localhost:3000";
-        Bkpk.Config.BkpkUrl = "http://localhost:8080";
-        Bkpk.Config.ClientID = "20a3c6c5-0dbd-407e-9e54-d0d5cd31a6cf";
+        Bkpk.Config.ClientID = "b2e14bcc-8728-4c2f-8af1-b539aaaa122e";
         Bkpk.Config.IpfsGateway = "https://ipfs.mona.gallery";
 
         _DefaultRotation = Platform.transform.rotation.eulerAngles.y;
