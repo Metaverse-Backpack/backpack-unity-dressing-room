@@ -1,6 +1,0 @@
-*.dir
-*.suo
-*.vcxproj*
-*.nupkg
-specification/.project
-.DS_Store

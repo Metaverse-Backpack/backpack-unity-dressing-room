@@ -37,6 +37,37 @@
 			image-rendering: pixelated;
 			-ms-interpolation-mode: nearest-neighbor;
 		}
+
+
+		.button-container {
+			z-index: 99999;
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+
+		.button {
+			cursor: pointer;
+			background: #542E91;
+			border: none;
+			border-radius: 4px;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+		}
+
+		.button:hover {
+			background: #6e46ad;
+		}
 	</style>
 </head>
 
@@ -73,11 +104,29 @@
 				container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
 				container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
 			}
+
+			function loadUI() {
+				const container = document.createElement('div')
+				container.className = "button-container"
+				
+				const button = document.createElement('button')
+				button.className = "button"
+				button.innerHTML = "Connect your Backpack"
+				button.addEventListener('click', () => {
+					window.unityInstance.SendMessage("Bkpk", "FetchAvatars")
+					container.remove()
+				})
+				container.appendChild(button)
+				document.body.appendChild(container)
+			}
+
 			createUnityInstance(canvas, config, progressHandler).then(function (instance) {
 				canvas = instance.Module.canvas;
 				window.unityInstance = instance;
+				loadUI();
 				onResize();
 			});
+			
 			window.addEventListener('resize', onResize);
 			onResize();
 		</script>

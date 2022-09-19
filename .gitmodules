@@ -1,0 +1,3 @@
+[submodule "Assets/Resources/UnitySDK"]
+	path = Assets/Resources/UnitySDK
+	url = https://github.com/Metaverse-Backpack/backpack-unity-sdk.git?path=/Assets/com.metaverse-backpack.backpack-unity-sdk

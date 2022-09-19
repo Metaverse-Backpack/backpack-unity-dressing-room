@@ -8,47 +8,33 @@ public class SceneManager : MonoBehaviour
     private Vector3 _DefaultPlatformSize;
     private float _DefaultRotation;
     private float _AngularVelocity;
-    private float _AngularVelocityDamping = 1f;
     private float _CameraZoom;
 
     private Bkpk.AvatarInfo[] _AvatarsMetadata;
     private Bkpk.BkpkAvatar _Avatar = null;
     private int _CurrentAvatarIndex = 0;
 
-    async void Awake()
+    void Awake()
     {
+        Bkpk.Config.WebSdkUrl = "https://owner.com.ngrok.io/JsSdk/dist/index.js";
+        Bkpk.Config.BkpkApiUrl = "http://localhost:3000";
+        Bkpk.Config.BkpkUrl = "http://localhost:8080";
+        Bkpk.Config.ClientID = "20a3c6c5-0dbd-407e-9e54-d0d5cd31a6cf";
+        Bkpk.Config.IpfsGateway = "https://ipfs.mona.gallery";
+
         _DefaultRotation = Platform.transform.rotation.eulerAngles.y;
         _DefaultPlatformSize = Platform.transform.localScale;
         _CameraZoom = Camera.main.fieldOfView;
-        LoadAvatars();
     }
 
-    async void LoadAvatars()
+    void FetchAvatars()
     {
-        Bkpk.AvatarInfo cryptoAvatars = new Bkpk.AvatarInfo
-        {
-            source =
-                "https://alvevault.s3.eu-central-1.amazonaws.com/CryptoAvatars_Orion_CryptoAvatars_Orion.vrm",
-            fileFormat = "vrm",
-            type = "humanoid",
-        };
+        Bkpk.Auth.Instance.RequestAuthorization(OnAuthorized);
+    }
 
-        Bkpk.AvatarInfo meebits = new Bkpk.AvatarInfo
-        {
-            source = "https://cdn.mona.gallery/e6db7ec3-d1c8-4935-86ce-b339a5d11eb6.vrm",
-            fileFormat = "vrm",
-            type = "humanoid",
-        };
-
-        Bkpk.AvatarInfo readyplayerme = new Bkpk.AvatarInfo
-        {
-            source =
-                "https://d1a370nemizbjq.cloudfront.net/0dccee22-f9db-44ca-a49d-deb8ca27aae5.glb",
-            fileFormat = "glb",
-            type = "humanoid",
-        };
-
-        _AvatarsMetadata = new Bkpk.AvatarInfo[] { cryptoAvatars, meebits, readyplayerme };
+    async void OnAuthorized(string token)
+    {
+        _AvatarsMetadata = await Bkpk.Avatars.GetAvatars();
         _CurrentAvatarIndex = 0;
         LoadCurrentAvatar();
     }
@@ -57,8 +43,7 @@ public class SceneManager : MonoBehaviour
     {
         if (_Avatar != null)
         {
-            Destroy(_Avatar.Animator);
-            Destroy(_Avatar.AvatarObject);
+            _Avatar.Dispose();
         }
         _Avatar = await Bkpk.Avatars.LoadAvatar(_AvatarsMetadata[_CurrentAvatarIndex]);
     }
@@ -74,12 +59,12 @@ public class SceneManager : MonoBehaviour
             Platform.transform.localScale = _DefaultPlatformSize * 0.9f;
         }
 
-        if (_Avatar != null)
+        if (_Avatar != null && _Avatar.Animator != null)
         {
             // Get keyboard input
             if (Input.GetKey(KeyCode.W))
             {
-                _Avatar.Animator.SetFloat("Speed", 2);
+                _Avatar.Animator.SetFloat("Speed", 6);
             }
             else
             {
