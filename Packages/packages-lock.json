@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.metaverse-backpack.backpack-unity-sdk": {
-      "version": "https://github.com/Metaverse-Backpack/backpack-unity-sdk.git?path=/Assets/com.metaverse-backpack.backpack-unity-sdk#v0.0.6-alpha",
+      "version": "https://github.com/Metaverse-Backpack/backpack-unity-sdk.git?path=/Assets/com.metaverse-backpack.backpack-unity-sdk#v0.0.9-alpha",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -12,7 +12,7 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.animation": "1.0.0"
       },
-      "hash": "ea861523ce6213d5fa75a0af39334c51ea27d4b7"
+      "hash": "200f8027ce631ec494b877ee44003e1f971a2c20"
     },
     "com.unity.collab-proxy": {
       "version": "1.17.2",

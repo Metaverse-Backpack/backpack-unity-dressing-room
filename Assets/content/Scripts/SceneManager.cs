@@ -43,6 +43,7 @@ public class SceneManager : MonoBehaviour
             _Avatar.Dispose();
         }
         _Avatar = await Bkpk.Avatars.LoadAvatar(_AvatarsMetadata[_CurrentAvatarIndex]);
+        _Avatar.gameObject.transform.SetParent(Platform.transform);
     }
 
     void Update()

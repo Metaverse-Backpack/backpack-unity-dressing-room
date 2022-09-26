@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.metaverse-backpack.backpack-unity-sdk": "https://github.com/Metaverse-Backpack/backpack-unity-sdk.git?path=/Assets/com.metaverse-backpack.backpack-unity-sdk#v0.0.6-alpha",
+    "com.metaverse-backpack.backpack-unity-sdk": "https://github.com/Metaverse-Backpack/backpack-unity-sdk.git?path=/Assets/com.metaverse-backpack.backpack-unity-sdk#v0.0.9-alpha",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.ide.rider": "3.0.15",
     "com.unity.ide.visualstudio": "2.0.16",
