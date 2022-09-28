@@ -16,8 +16,8 @@ public class SceneManager : MonoBehaviour
 
     void Awake()
     {
-        Bkpk.Config.ClientID = "b2e14bcc-8728-4c2f-8af1-b539aaaa122e";
-        Bkpk.Config.IpfsGateway = "https://ipfs.mona.gallery";
+        Bkpk.Config.ClientID = "f596bf0f-1fb9-4826-95e9-3c1e8a90a137";
+        Bkpk.Config.IpfsGateway = "https://nftstorage.link";
 
         _DefaultRotation = Platform.transform.rotation.eulerAngles.y;
         _DefaultPlatformSize = Platform.transform.localScale;
